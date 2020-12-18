@@ -6,13 +6,6 @@ def choice():
 
     return int(input(">>> "))
 
-def menu_question(*args):
-    '''
-    Provide structure to menu questions
-    '''
-
-    return input("What {} {} {}? ".format(args[0], args[1], args[2])).upper()
-
 def main_menu_options():
     print("Welcome to the World Bank!")
     print("Customers, please press 1")
@@ -41,13 +34,16 @@ def validate_name(name):
 
 def validate_ssn(ssn):
     '''
-    Validate the SSN entered does not contain letters and is not empty
+    Validate the SSN entered does not contain letters, is not empty and is not less than 9 characters
     '''
 
     if not ssn.isdecimal():
         raise ValueError
 
     if ssn == '':
+        raise ValueError
+
+    if len(ssn) < 9:
         raise ValueError
 
 def validate_address(address):
@@ -196,23 +192,23 @@ def ssn(action=None):
     if action == 1:
 
         try:
-            user_ssn = input("What is your SSN? ")
+            user_ssn = input("What is your SSN (Please exclude dashes)? ")
             validate_ssn(user_ssn)
             return user_ssn
         except ValueError:
             # logger
-            print("SSN cannot contain letters or be empty. Please try again.")
+            print("SSN cannot contain letters, be empty or be less than 9 characters. Please try again.")
             return ssn(1)
     
     else:
 
         try:
-            user_ssn = input("What is the employee's SSN? ")
+            user_ssn = input("What is the employee's SSN (Please exclude dashes)? ")
             validate_ssn(user_ssn)
             return user_ssn
         except ValueError:
             # logger
-            print("SSN cannot contain letters or be empty. Please try again.")
+            print("SSN cannot contain letters, be empty or be less than 9 characters. Please try again.")
             return ssn()
 
 def street_address(action=None):
