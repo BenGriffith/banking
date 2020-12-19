@@ -1,3 +1,6 @@
+import json
+import pathlib
+import jsonpickle
 
 def choice():
     '''
@@ -157,7 +160,7 @@ def middle_name(action=None):
             print("Middle name must contain A to Z characters and cannot empty. Please try again.")
             return middle_name()
 
-def last_name(action=None):
+def last_name(action=None, update="N"):
     '''
     Prompts user to input value for last name
     '''
@@ -165,7 +168,10 @@ def last_name(action=None):
     if action == 1:
 
         try:
-            name = input("What is your last name? ")
+            if update == "Y":
+                name = input("What is your new last name? ")
+            else:
+                name = input("What is your last name? ")
             validate_name(name)
             return name
         except ValueError:
@@ -211,7 +217,7 @@ def ssn(action=None):
             print("SSN cannot contain letters, be empty or be less than 9 characters. Please try again.")
             return ssn()
 
-def street_address(action=None):
+def street_address(action=None, update="N"):
     '''
     Prompts user to input value for street address
     '''
@@ -219,7 +225,10 @@ def street_address(action=None):
     if action == 1:
 
         try:
-            address = input("What is your street address? ")
+            if update == "Y":
+                address = input("What is your new street address? ")
+            else:
+                address = input("What is your street address? ")
             validate_address(address)
             return address
         except ValueError:
@@ -238,7 +247,7 @@ def street_address(action=None):
             print("Street address cannot be empty. Please try again.")
             return street_address()
 
-def city(action=None):
+def city(action=None, update="N"):
     '''
     Prompts user to input value for city
     '''
@@ -246,7 +255,10 @@ def city(action=None):
     if action == 1:
 
         try:
-            user_city = input("What is your city? ")
+            if update == "Y":
+                user_city = input("What is your new city? ")
+            else:
+                user_city = input("What is your city? ")
             validate_city_state(user_city)
             return user_city
         except ValueError:
@@ -265,7 +277,7 @@ def city(action=None):
             print("City cannot be empty. Please try again.")
             return city()
 
-def state(action=None):
+def state(action=None, update="N"):
     '''
     Prompts user to input value for state
     '''
@@ -273,7 +285,10 @@ def state(action=None):
     if action == 1:
 
         try:
-            user_state = input("What is your state? ")
+            if update == "Y":
+                user_state = input("What is your new state? ")
+            else:
+                user_state = input("What is your state? ")
             validate_city_state(user_state)
             return user_state
         except:
@@ -292,7 +307,7 @@ def state(action=None):
             print("State cannot be empty. Please try again.")
             return state()
 
-def zip_code(action=None):
+def zip_code(action=None, update="N"):
     '''
     Prompts user to input value for zip code
     '''
@@ -300,7 +315,10 @@ def zip_code(action=None):
     if action == 1:
 
         try:
-            user_zip_code = input("What is your zip code? ")
+            if update == "Y":
+                user_zip_code = input("What is your new zip code? ")
+            else:
+                user_zip_code = input("What is your zip code? ")
             validate_zip(user_zip_code)
             return user_zip_code
         except ValueError:
@@ -319,21 +337,28 @@ def zip_code(action=None):
             print("Zip code can only contain numbers and cannot be empty. Please try again.")
             return zip_code()
 
-def email():
+def email(update="N"):
     '''
     Prompts user to input value for email
     '''
     
-    email = input("What is your email address? ")
+    if update == "Y":
+        email = input("What is your new email address? ")
+    else:
+        email = input("What is your email address? ")
+    
     return email
 
-def pin():
+def pin(update="N"):
     '''
     Prompts user to input value for PIN
     '''
 
     try:
-        user_pin = input("What is your PIN? ")
+        if update == "Y":
+            user_pin = input("What is your new PIN? ")
+        else:
+            user_pin = input("What is your PIN? ")
         validate_pin(user_pin)
         return user_pin
     except ValueError:
@@ -376,3 +401,48 @@ def supervisor():
         # logger
         print("Supervisor cannot be empty. Please try again.")
         return supervisor()
+
+def write_json(filename, data):
+    '''
+    Write to JSON file
+    '''
+
+    with open(filename, "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
+def read_append_json(filename, data_dict):
+    '''
+    Read JSON file and append data before invoking write_json()
+    '''
+    
+    with open(filename, "r") as json_file:
+        data = json.load(json_file)
+        stem = pathlib.Path(filename).stem
+        
+        temp = data[stem]
+        temp.append(data_dict)
+
+    write_json(filename, data)
+
+def read_update_json(filename, person):
+    '''
+    Read JSON file and update data before invoking write_json()
+    '''
+
+    with open(filename, "r") as json_file:
+        data = json.load(json_file)
+        stem = pathlib.Path(filename).stem
+
+        temp = data[stem]
+
+        for i in temp:
+            j = jsonpickle.decode(i)
+            if j.ssn == person.ssn:
+                idx = temp.index(i)
+                temp.pop(idx)
+                j = jsonpickle.encode(person)
+                temp.append(j)
+
+    write_json(filename, data)
+        
+
