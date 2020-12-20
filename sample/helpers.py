@@ -2,27 +2,19 @@ import json
 import pathlib
 import jsonpickle
 
-def choice():
+def choice_int():
     '''
-    Capture user input
+    Capture user input as an integer
     '''
 
     return int(input(">>> "))
 
-def main_menu_options():
-    print("Welcome to the World Bank!")
-    print("Customers, please press 1")
-    print("Employees, please press 2")
+def choice_text():
+    '''
+    Capture user input as text
+    '''
 
-def menu_customer_options():
-    print("Customer Registration, please press 1")
-    print("Existing Customer, please press 2")
-    print("Previous Menu, please press 0")
-
-def menu_employee_options():
-    print("Employee Registration, please press 1")
-    print("Existing Employee, please press 2")
-    print("Previous Menu, please press 0")  
+    return input(">>> ")
 
 def validate_name(name):
     '''
@@ -92,7 +84,7 @@ def validate_salary(salary):
     Validate the salary contains only numbers and is not empty
     '''
 
-    if not salary.isdecimal():
+    if not isinstance(salary, int):
         raise ValueError
 
     if salary == '':
@@ -114,7 +106,8 @@ def first_name(action=None):
     if action == 1:
 
         try:
-            name = input("What is your first name? ")
+            print("What is your first name? ")
+            name = choice_text().strip().upper()
             validate_name(name)
             return name
         except ValueError:
@@ -125,7 +118,8 @@ def first_name(action=None):
     else:
 
         try:
-            name = input("What is the employee's first name? ")
+            print("What is the employee's first name? ")
+            name = choice_text().strip().upper()
             validate_name(name)
             return name
         except ValueError:
@@ -141,7 +135,8 @@ def middle_name(action=None):
     if action == 1:
 
         try:
-            name = input("What is your middle name? ")
+            print("What is your middle name? ")
+            name = choice_text().strip().upper()
             validate_name(name)
             return name
         except ValueError:
@@ -152,7 +147,8 @@ def middle_name(action=None):
     else:
 
         try:
-            name = input("What is the employee's middle name? ")
+            print("What is the employee's middle name? ")
+            name = choice_text().strip().upper()
             validate_name(name)
             return name
         except ValueError:
@@ -169,9 +165,11 @@ def last_name(action=None, update="N"):
 
         try:
             if update == "Y":
-                name = input("What is your new last name? ")
+                print("What is your new last name? ")
+                name = choice_text().strip().upper()
             else:
-                name = input("What is your last name? ")
+                print("What is your last name? ")
+                name = choice_text().strip().upper()
             validate_name(name)
             return name
         except ValueError:
@@ -182,7 +180,8 @@ def last_name(action=None, update="N"):
     else:
 
         try:
-            name = input("What is the employee's last name? ")
+            print("What is the employee's last name? ")
+            name = choice_text().strip().upper()
             validate_name(name)
             return name
         except ValueError:
@@ -198,7 +197,8 @@ def ssn(action=None):
     if action == 1:
 
         try:
-            user_ssn = input("What is your SSN (Please exclude dashes)? ")
+            print("What is your SSN (Please exclude dashes)? ")
+            user_ssn = choice_text().strip()
             validate_ssn(user_ssn)
             return user_ssn
         except ValueError:
@@ -209,7 +209,8 @@ def ssn(action=None):
     else:
 
         try:
-            user_ssn = input("What is the employee's SSN (Please exclude dashes)? ")
+            print("What is the employee's SSN (Please exclude dashes)? ")
+            user_ssn = choice_text().strip()
             validate_ssn(user_ssn)
             return user_ssn
         except ValueError:
@@ -226,9 +227,11 @@ def street_address(action=None, update="N"):
 
         try:
             if update == "Y":
-                address = input("What is your new street address? ")
+                print("What is your new street address? ")
+                address = choice_text().strip().upper()
             else:
-                address = input("What is your street address? ")
+                print("What is your street address? ")
+                address = choice_text().strip().upper()
             validate_address(address)
             return address
         except ValueError:
@@ -239,7 +242,8 @@ def street_address(action=None, update="N"):
     else:
 
         try:
-            address = input("What is the employee's street address? ")
+            print("What is the employee's street address? ")
+            address = choice_text().strip().upper()
             validate_address(address)
             return address
         except ValueError:
@@ -256,9 +260,10 @@ def city(action=None, update="N"):
 
         try:
             if update == "Y":
-                user_city = input("What is your new city? ")
+                print("What is your new city? ")
             else:
-                user_city = input("What is your city? ")
+                print("What is your city? ")
+            user_city = choice_text().strip().upper()
             validate_city_state(user_city)
             return user_city
         except ValueError:
@@ -269,7 +274,8 @@ def city(action=None, update="N"):
     else:
 
         try:
-            user_city = input("What is the employee's city? ")
+            print("What is the employee's city? ")
+            user_city = choice_text().strip().upper()
             validate_city_state(user_city)
             return user_city
         except ValueError:
@@ -286,9 +292,10 @@ def state(action=None, update="N"):
 
         try:
             if update == "Y":
-                user_state = input("What is your new state? ")
+                print("What is your new state? ")
             else:
-                user_state = input("What is your state? ")
+                print("What is your state? ")
+            user_state = choice_text().strip().upper()
             validate_city_state(user_state)
             return user_state
         except:
@@ -299,7 +306,8 @@ def state(action=None, update="N"):
     else:
 
         try:
-            user_state = input("What is your state? ")
+            print("What is your state? ")
+            user_state = choice_text().strip().upper()
             validate_city_state(user_state)
             return user_state
         except:
@@ -316,9 +324,11 @@ def zip_code(action=None, update="N"):
 
         try:
             if update == "Y":
-                user_zip_code = input("What is your new zip code? ")
+                print("What is your new zip code? ")
+                user_zip_code = choice_text().strip()
             else:
-                user_zip_code = input("What is your zip code? ")
+                print("What is your zip code? ")
+                user_zip_code = choice_text().strip()
             validate_zip(user_zip_code)
             return user_zip_code
         except ValueError:
@@ -329,7 +339,8 @@ def zip_code(action=None, update="N"):
     else:
 
         try:
-            user_zip_code = input("What is the employee's zip code? ")
+            print("What is the employee's zip code? ")
+            user_zip_code = choice_text().strip()
             validate_zip(user_zip_code)
             return user_zip_code
         except ValueError:
@@ -343,9 +354,11 @@ def email(update="N"):
     '''
     
     if update == "Y":
-        email = input("What is your new email address? ")
+        print("What is your new email address? ")
+        email = choice_text().strip().upper()
     else:
-        email = input("What is your email address? ")
+        print("What is your email address? ")
+        email = choice_text().strip().upper()
     
     return email
 
@@ -356,9 +369,10 @@ def pin(update="N"):
 
     try:
         if update == "Y":
-            user_pin = input("What is your new PIN? ")
+            print("What is your new PIN? ")
         else:
-            user_pin = input("What is your PIN? ")
+            print("What is your PIN? ")
+        user_pin = choice_text().strip()
         validate_pin(user_pin)
         return user_pin
     except ValueError:
@@ -372,7 +386,8 @@ def salary():
     '''
 
     try:
-        employee_salary = input("What is the employee salary? ")
+        print("What is the employee salary? ")
+        employee_salary = choice_int()
         validate_salary(employee_salary)
         return employee_salary
     except ValueError:
@@ -385,7 +400,8 @@ def department():
     Prompts user to input department
     '''
 
-    dept = input("What is the employee's department? ")
+    print("What is the employee's department? ")
+    dept = choice_text().strip().upper()
     return dept
 
 def supervisor():
@@ -394,7 +410,8 @@ def supervisor():
     '''
 
     try:
-        lead = input("Who is the employee's supervisor? ")
+        print("Who is the employee's supervisor? ")
+        lead = choice_text().strip().upper()
         validate_lead(lead)
         return lead
     except:
@@ -444,5 +461,43 @@ def read_update_json(filename, person):
                 temp.append(j)
 
     write_json(filename, data)
-        
 
+def read_json_accounts(filename, ssn):
+
+
+    with open(filename, "r") as json_file:
+        data = json.load(json_file)
+        stem = pathlib.Path(filename).stem
+
+        accounts = data[stem]
+
+        for account in accounts:
+            account = jsonpickle.decode(account)
+            if account.ssn == ssn:
+                print("Account Number is {} ({}): {}".format(account.account_number, account.account_type, account.balance))
+
+def update_json_account(filename, ssn, account_number, amount, action):
+
+    with open(filename, "r") as json_file:
+        data = json.load(json_file)
+        stem = pathlib.Path(filename).stem
+
+        accounts = data[stem]
+
+        for account in accounts:
+            account_decoded = jsonpickle.decode(account)
+            if account_decoded.ssn == ssn and account_decoded.account_number == account_number:
+                if action == 1:
+                    account_decoded.deposit = amount
+
+                if action == 2:
+                    account_decoded.withdrawal = amount
+
+                idx = accounts.index(account)
+                accounts.pop(idx)
+                account_new = jsonpickle.encode(account_decoded)
+                accounts.append(account_new)
+
+        write_json(filename, data)
+
+                
