@@ -6,8 +6,11 @@ def choice_int():
     '''
     Capture user input as an integer
     '''
-
-    return int(input(">>> "))
+    try:
+        return int(input(">>> "))
+    except ValueError:
+        # logger
+        return
 
 def choice_text():
     '''
@@ -453,17 +456,22 @@ def read_update_json(filename, person):
         temp = data[stem]
 
         for i in temp:
-            j = jsonpickle.decode(i)
-            if j.ssn == person.ssn:
+            # Decode person object
+            old_person = jsonpickle.decode(i)
+
+            # If match found, remove old encoded person object and replace with new encoded person object
+            if old_person.ssn == person.ssn:
                 idx = temp.index(i)
                 temp.pop(idx)
-                j = jsonpickle.encode(person)
-                temp.append(j)
+                new_person = jsonpickle.encode(person)
+                temp.append(new_person)
 
     write_json(filename, data)
 
 def read_json_accounts(filename, ssn):
-
+    '''
+    Read JSON file for particular customer and print all associated accounts (checking and savings)
+    '''
 
     with open(filename, "r") as json_file:
         data = json.load(json_file)
@@ -477,6 +485,9 @@ def read_json_accounts(filename, ssn):
                 print("Account Number is {} ({}): {}".format(account.account_number, account.account_type, account.balance))
 
 def update_json_account(filename, ssn, account_number, amount, action):
+    '''
+    Read JSON file for particular account and update the account amount (deposit or withdraw) based on action
+    '''
 
     with open(filename, "r") as json_file:
         data = json.load(json_file)
@@ -485,18 +496,24 @@ def update_json_account(filename, ssn, account_number, amount, action):
         accounts = data[stem]
 
         for account in accounts:
-            account_decoded = jsonpickle.decode(account)
-            if account_decoded.ssn == ssn and account_decoded.account_number == account_number:
-                if action == 1:
-                    account_decoded.deposit = amount
 
+            # Decode account object
+            old_account = jsonpickle.decode(account)
+
+            # If match found, remove old encoded account object and replace with new encoded account object
+            if old_account.ssn == ssn and old_account.account_number == account_number:
+                # Deposit
+                if action == 1:
+                    old_account.deposit = amount
+
+                # Withdraw
                 if action == 2:
-                    account_decoded.withdrawal = amount
+                    old_account.withdrawal = amount
 
                 idx = accounts.index(account)
                 accounts.pop(idx)
-                account_new = jsonpickle.encode(account_decoded)
-                accounts.append(account_new)
+                new_account = jsonpickle.encode(old_account)
+                accounts.append(new_account)
 
         write_json(filename, data)
 
