@@ -1,6 +1,7 @@
 import json
 import pathlib
 import jsonpickle
+from logs import log
 
 def choice_int():
     '''
@@ -9,7 +10,6 @@ def choice_int():
     try:
         return int(input(">>> "))
     except ValueError:
-        # logger
         return
 
 def choice_text():
@@ -104,6 +104,8 @@ def validate_lead(supervisor):
 def first_name(action=None):
     '''
     Prompts user to input value for first name
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -114,7 +116,7 @@ def first_name(action=None):
             validate_name(name)
             return name
         except ValueError:
-            # logger
+            log.logging.info("first_name(): customer first name value invalid")
             print("First Name must contain A to Z characters and cannot be empty. Please try again.")
             return first_name(1)
 
@@ -126,13 +128,15 @@ def first_name(action=None):
             validate_name(name)
             return name
         except ValueError:
-            # logger
+            log.logging.info("first_name(): employee first name value invalid")
             print("First Name must contain A to Z characters and cannot be empty. Please try again.")
             return first_name()
 
 def middle_name(action=None):
     '''
     Prompts user to input value for middle name
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -143,7 +147,7 @@ def middle_name(action=None):
             validate_name(name)
             return name
         except ValueError:
-            # logger
+            log.logging.info("middle_name(): customer middle name value invalid")
             print("Middle name must contain A to Z characters and cannot empty. Please try again.")
             return middle_name(1)
 
@@ -155,13 +159,15 @@ def middle_name(action=None):
             validate_name(name)
             return name
         except ValueError:
-            # logger
+            log.logging.info("middle_name(): employee middle name value invalid")
             print("Middle name must contain A to Z characters and cannot empty. Please try again.")
             return middle_name()
 
 def last_name(action=None, update="N"):
     '''
     Prompts user to input value for last name
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -176,7 +182,7 @@ def last_name(action=None, update="N"):
             validate_name(name)
             return name
         except ValueError:
-            # logger
+            log.logging.info("last_name(): customer last name value invalid")
             print("Last name must contain A to Z characters and cannot be empty. Please try again.")
             return last_name(1)
 
@@ -188,13 +194,15 @@ def last_name(action=None, update="N"):
             validate_name(name)
             return name
         except ValueError:
-            # logger
+            log.logging.info("last_name(): employee last name value invalid")
             print("Last name must contain A to Z characters and cannot be empty. Please try again.")
             return last_name()
 
 def ssn(action=None):
     '''
     Prompts user to input value for SSN
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -205,7 +213,7 @@ def ssn(action=None):
             validate_ssn(user_ssn)
             return user_ssn
         except ValueError:
-            # logger
+            log.logging.info("ssn(): customer ssn value invalid")
             print("SSN cannot contain letters, be empty or be less than 9 characters. Please try again.")
             return ssn(1)
     
@@ -217,13 +225,15 @@ def ssn(action=None):
             validate_ssn(user_ssn)
             return user_ssn
         except ValueError:
-            # logger
+            log.logging.info("ssn(): employee ssn value invalid")
             print("SSN cannot contain letters, be empty or be less than 9 characters. Please try again.")
             return ssn()
 
 def street_address(action=None, update="N"):
     '''
     Prompts user to input value for street address
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -238,7 +248,7 @@ def street_address(action=None, update="N"):
             validate_address(address)
             return address
         except ValueError:
-            # logger
+            log.logging.info("street_address(): customer address value invalid")
             print("Street address cannot be empty. Please try again.")
             return street_address(1)
 
@@ -250,13 +260,15 @@ def street_address(action=None, update="N"):
             validate_address(address)
             return address
         except ValueError:
-            # logger
+            log.logging.info("street_address(): employee address value invalid")
             print("Street address cannot be empty. Please try again.")
             return street_address()
 
 def city(action=None, update="N"):
     '''
     Prompts user to input value for city
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -270,7 +282,7 @@ def city(action=None, update="N"):
             validate_city_state(user_city)
             return user_city
         except ValueError:
-            # logger
+            log.logging.info("city(): customer city value invalid")
             print("City cannot be empty. Please try again.")
             return city(1)
 
@@ -282,13 +294,15 @@ def city(action=None, update="N"):
             validate_city_state(user_city)
             return user_city
         except ValueError:
-            # logger
+            log.logging.info("city(): employee city value invalid")
             print("City cannot be empty. Please try again.")
             return city()
 
 def state(action=None, update="N"):
     '''
     Prompts user to input value for state
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -302,7 +316,7 @@ def state(action=None, update="N"):
             validate_city_state(user_state)
             return user_state
         except:
-            # logger
+            log.logging.info("state(): customer state value invalid")
             print("State cannot be empty. Please try again.")
             return state(1)
 
@@ -314,13 +328,15 @@ def state(action=None, update="N"):
             validate_city_state(user_state)
             return user_state
         except:
-            # logger
+            log.logging.info("state(): employee state value invalid")
             print("State cannot be empty. Please try again.")
             return state()
 
 def zip_code(action=None, update="N"):
     '''
     Prompts user to input value for zip code
+    Action = 1 is for customer
+    Action != 1 is for employee
     '''
 
     if action == 1:
@@ -335,7 +351,7 @@ def zip_code(action=None, update="N"):
             validate_zip(user_zip_code)
             return user_zip_code
         except ValueError:
-            # logger
+            log.logging.info("zip_code(): customer zip code value invalid")
             print("Zip code can only contain numbers and cannot be empty. Please try again.")
             return zip_code(1)
 
@@ -347,7 +363,7 @@ def zip_code(action=None, update="N"):
             validate_zip(user_zip_code)
             return user_zip_code
         except ValueError:
-            # logger
+            log.logging.info("zip_code(): employee zip code value invalid")
             print("Zip code can only contain numbers and cannot be empty. Please try again.")
             return zip_code()
 
@@ -379,7 +395,7 @@ def pin(update="N"):
         validate_pin(user_pin)
         return user_pin
     except ValueError:
-        # logger
+        log.logging.info("pin(): customer pin value invalid")
         print("PIN must be 4 characters and cannot be empty. Please try again.")
         return pin()
 
@@ -394,7 +410,7 @@ def salary():
         validate_salary(employee_salary)
         return employee_salary
     except ValueError:
-        # logger
+        log.logging.info("salary(): employee salary value invalid")
         print("Salary can only contain numbers and cannot be empty. Please try again.")
         return salary()
 
@@ -418,7 +434,7 @@ def supervisor():
         validate_lead(lead)
         return lead
     except:
-        # logger
+        log.logging.info("supervisor(): employee supervisor value invalid")
         print("Supervisor cannot be empty. Please try again.")
         return supervisor()
 
