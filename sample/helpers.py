@@ -12,6 +12,15 @@ def choice_int():
     except ValueError:
         return
 
+def choice_float():
+    '''
+    Capture user input as a float
+    '''
+    try:
+        return float(input(">>> "))
+    except ValueError:
+        return
+
 def choice_text():
     '''
     Capture user input as text
@@ -184,7 +193,10 @@ def last_name(action=None, update="N"):
         except ValueError:
             log.logging.info("last_name(): customer last name value invalid")
             print("Last name must contain A to Z characters and cannot be empty. Please try again.")
-            return last_name(1)
+            if update == "Y":
+                return last_name(1, "Y")
+            else:
+                return last_name(1)
 
     else:
 
@@ -250,7 +262,10 @@ def street_address(action=None, update="N"):
         except ValueError:
             log.logging.info("street_address(): customer address value invalid")
             print("Street address cannot be empty. Please try again.")
-            return street_address(1)
+            if update == "Y":
+                return street_address(1, "Y")
+            else:
+                return street_address(1)
 
     else:
 
@@ -284,7 +299,10 @@ def city(action=None, update="N"):
         except ValueError:
             log.logging.info("city(): customer city value invalid")
             print("City cannot be empty. Please try again.")
-            return city(1)
+            if update == "Y":
+                return city(1, "Y")
+            else:
+                return city(1)
 
     else:
 
@@ -318,7 +336,10 @@ def state(action=None, update="N"):
         except:
             log.logging.info("state(): customer state value invalid")
             print("State cannot be empty. Please try again.")
-            return state(1)
+            if update == "Y":
+                return state(1, "Y")
+            else:
+                return state(1)
 
     else:
 
@@ -353,7 +374,10 @@ def zip_code(action=None, update="N"):
         except ValueError:
             log.logging.info("zip_code(): customer zip code value invalid")
             print("Zip code can only contain numbers and cannot be empty. Please try again.")
-            return zip_code(1)
+            if update == "Y":
+                return zip_code(1, "Y")
+            else:
+                return zip_code(1)
 
     else:
 
@@ -397,7 +421,10 @@ def pin(update="N"):
     except ValueError:
         log.logging.info("pin(): customer pin value invalid")
         print("PIN must be 4 characters and cannot be empty. Please try again.")
-        return pin()
+        if update == "Y":
+            return pin("Y")
+        else:
+            return pin()
 
 def salary():
     '''
@@ -520,7 +547,10 @@ def update_json_account(filename, ssn, account_number, amount, action):
             if old_account.ssn == ssn and old_account.account_number == account_number:
                 # Deposit
                 if action == 1:
-                    old_account.deposit = amount
+                    try:
+                        old_account.deposit = amount
+                    except ValueError:
+                        raise
 
                 # Withdraw
                 if action == 2:

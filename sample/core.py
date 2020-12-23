@@ -192,7 +192,7 @@ def menu_customer_existing(new_session="Y", customer=None):
             menu_customer()
         else:
             log.logging.info("menu_customer_existing(): invalid option selected")
-            print("The option selected is invalid. Please select either 1, 2 or 3.\n")
+            print("The option selected is invalid. Please select either 1, 2, 3 or 0.\n")
             time.sleep(2)
 
             # Redirect to existing customer menu
@@ -288,6 +288,9 @@ def menu_employee_existing():
                 print("What is the new salary? ")
                 new_salary = helpers.choice_int()
 
+                if new_salary == None:
+                    new_salary = 0
+
                 # Update employee salary
                 employee.salary = new_salary
 
@@ -307,7 +310,7 @@ def menu_employee_existing():
         elif menu_choice == 0:
             main_menu()
         else:
-            log.logging.info("menu_customer_existing(): invalid option selected")
+            log.logging.info("menu_employee_existing(): invalid option selected")
             print("The option selected is invalid. Returning to main menu.\n")
             time.sleep(2)
 
@@ -330,11 +333,16 @@ def menu_new_accounts(customer):
 
         # Get customer input
         print("How much will the initial deposit be for? ")
-        initial_deposit = helpers.choice_int()
+        initial_deposit = helpers.choice_float()
 
         # Check for initial deposit
         if initial_deposit == None:
-            initial_deposit = 0
+            initial_deposit = 1
+
+        if initial_deposit < 0:
+            log.logging.info("initial_deposit checking: invalid deposit value")
+            print("Please enter a value greater than 0.\n")
+            menu_new_accounts(customer)
 
         # Instantiate checking account object
         checking_account = bank.CheckingAccount(
@@ -360,11 +368,16 @@ def menu_new_accounts(customer):
 
         # Get customer input
         print("How much would like for initial deposit? ")
-        initial_deposit = helpers.choice_int()
+        initial_deposit = helpers.choice_float()
 
         # Check for initial deposit
         if initial_deposit == None:
-            initial_deposit = 0
+            initial_deposit = 1        
+        
+        if initial_deposit < 0:
+            log.logging.info("initial_deposit savings: invalid deposit value")
+            print("Please enter a value greater than 0.\n")
+            menu_new_accounts(customer)
 
         # Instantiate savings account object
         savings_account = bank.SavingsAccount(
@@ -418,17 +431,22 @@ def menu_existing_accounts(customer):
 
             # Get customer input
             print("How much would you like to deposit? ")
-            amount = helpers.choice_int()
+            amount = helpers.choice_float()
 
             if amount != None:
 
-                # Apply deposit and update balance for account number
-                helpers.update_json_account(accounts, customer.ssn, account_number, amount, 1)
+                try:
+                    # Apply deposit and update balance for account number
+                    helpers.update_json_account(accounts, customer.ssn, account_number, amount, 1)
+                except ValueError:
+                    log.logging.info("menu_existing_accounts(): invalid deposit value")
+                    print("Please enter a deposit value greater than 0.\n")
+                    menu_existing_accounts(customer)
 
                 # Update reflected in listing of accounts
                 helpers.read_json_accounts(accounts, customer.ssn)
 
-                print("Thank you for visiting World Bank! Have a great day!\n")
+                print("Thank you for visiting World Bank! Have a great day!")
                 time.sleep(2)
 
                 # Redirect to existing customer menu
@@ -460,17 +478,22 @@ def menu_existing_accounts(customer):
 
             # Get customer input
             print("How much would you like to withdraw? ")
-            amount = helpers.choice_int()
+            amount = helpers.choice_float()
 
             if amount != None:
 
-                # Apply withdrawal and update balance for account number
-                helpers.update_json_account(accounts, customer.ssn, account_number, amount, 2)
+                try:
+                    # Apply withdrawal and update balance for account number
+                    helpers.update_json_account(accounts, customer.ssn, account_number, amount, 2)
+                except ValueError:
+                    log.logging.info("menu_existing_accounts(): invalid withdrawal value")
+                    print("Please enter a withdrawal value greater than 0.\n")
+                    menu_existing_accounts(customer)
 
                 # Update reflected in listing of accounts
                 helpers.read_json_accounts(accounts, customer.ssn)
 
-                print("Thank you for visiting World Bank! Have a great day!\n")
+                print("Thank you for visiting World Bank! Have a great day!")
                 time.sleep(2)
 
                 # Redirect to existing customer menu
@@ -604,10 +627,10 @@ def menu_update_profile(customer):
         time.sleep(2)
         main_menu()
     else:
-        log.logging.info("menu_customer_existing(): invalid option selected")
+        log.logging.info("menu_update_profile(): invalid option selected")
         print("The option selected is invalid. Please try again.\n")
         time.sleep(2)
-        menu_update_profile()
+        menu_update_profile(customer)
 
 if __name__ == "__main__":
     main_menu()
