@@ -1,23 +1,23 @@
 ## Table of Contents
-* [General Info] (#general-info)
-* [Technologies] (#technologies)
-* [Setup] (#setup)
+[General Info] (#general-info)
+[Technologies] (#technologies)
+[Setup] (#setup)
 
 ## General Info
 In this project, I created a banking system using Python Object-Oriented Programming (OOP) techniques. In my bank, I created entities for customers, employees and accounts. Each of these entities have distinct properties. For example, customer and employee entities include first name, last name, address, email, PIN, salary and other properties. While accounts entity includes account type, account number, balance, deposit and withdrawal properties.
 
-Customer, employee and account information is stored using JSON files.
+Customer, employee and account records are stored using JSON files.
 
-```core.py``` is the driver consisting of menu options
+```core.py``` is the command line driver allowing a user to interact with the following World Bank components:
 
-Customer Registration
-Customer Basic Authentication
-Customer Account Creation
-Customer Deposit(s) and Withdrawal(s) from Existing Accounts
-Customer Profile Update
-Employee Registration
-Employee Basic Authentication
-Employee Profile Information and Update
+- Customer Registration
+- Customer Basic Authentication
+- Customer Account Creation
+- Customer Deposit(s) and Withdrawal(s)
+- Customer Profile Update
+- Employee Registration
+- Employee Basic Authentication
+- Employee Profile Information and Update
 
 ## Technologies
 Project is created with: 
