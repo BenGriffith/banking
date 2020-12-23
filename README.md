@@ -4,7 +4,7 @@
 - [Setup](#setup)
 
 ## General Info
-In this project, I created a banking system using Python Object-Oriented Programming (OOP) techniques. In my bank, I created entities for customers, employees and accounts. Each of these entities have distinct properties. For example, customer and employee entities include first name, last name, address, email, PIN, salary and other properties. While accounts entity includes account type, account number, balance, deposit and withdrawal properties.
+In this project, I created a banking system using Python Object-Oriented Programming (OOP) techniques. In my bank, I created entities for customers, employees and accounts. Each of these entities have distinct properties. For example, customer and employee entities include first name, last name, address, email, PIN, salary and other properties. While accounts entities includes account type, account number, balance, deposit and withdrawal properties.
 
 Customer, employee and account records are stored using JSON files.
 
